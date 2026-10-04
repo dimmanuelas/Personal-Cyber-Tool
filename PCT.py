@@ -1,5 +1,6 @@
 import time
 import os
+import platform
 from colorama import Fore
 import re
 
@@ -24,7 +25,11 @@ def UpperText():
     print("░░░██║░░░╚█████╔╝╚█████╔╝███████╗  ░░░░░░  ██║░░░░░╚█████╔╝░░░██║░░░")
     print("░░░╚═╝░░░░╚════╝░░╚════╝░╚══════╝  ░░░░░░  ╚═╝░░░░░░╚════╝░░░░╚═╝░░░")
 
-
+def clear_terminal():
+    if platform.system() == "Windows":
+        os.system('cls')
+    else:
+        os.system('clear')
 
 def Menu():
 
@@ -36,7 +41,7 @@ def Menu():
 
 def reload():
     print(Fore.WHITE, "Reloading...")
-    os.system('cls')
+    clear_terminal()
     main()
 
 def save_file(dir_name, file_name, value):
@@ -75,7 +80,7 @@ def save_file(dir_name, file_name, value):
         reload()
 
 def main():
-    os.system('cls')
+    clear_terminal()
     UpperText()
     print(Fore.CYAN, "home\n")
     Menu()
@@ -85,18 +90,18 @@ def main():
     elif _input1 == 2:
         reconnaissance_tools()
     elif _input1 == 4:
-        os.system('cls')
+        clear_terminal()
         print(Fore.RED)
         inp = input("Continue Shutdown? [Y/n]: ").strip().lower()
         if inp=="y":
-            os.system('cls')
+            clear_terminal()
             print(Fore.GREEN, "Goodbye.")
             time.sleep(1)
         elif inp=="n":
             main()
 
 def osint():
-    os.system('cls')
+    clear_terminal()
     UpperText()
     print(Fore.CYAN, "home/osint\n")
     menu_list = ["Username Search", "Phone Number Information"]
@@ -107,15 +112,15 @@ def osint():
     _input1 = int(input("Select: "))
 
     if _input1 == 1:
-        os.system('cls')
+        clear_terminal()
         print("1. Famous Social Media Links Only\n2. All Links\n3. Back")
         _input2 = int(input("Select: "))
         if _input2 == 1:
-            os.system('cls')
+            clear_terminal()
             print("Get Username From Across Internet")
             print("API: PCTs API")
             username = input("Enter the username to search: ")
-            os.system('cls')
+            clear_terminal()
             print(Fore.WHITE, f"Searching for {username}...")
             print("This may take a second or minute...\n")
             print(f"Result of '{username}'")
@@ -129,14 +134,14 @@ def osint():
 
         elif _input2 == 2:
 
-            os.system('cls')
+            clear_terminal()
             print("Get Username From Across Internet")
             print("API: PCTs API")
 
             import script.Username as Username
 
             username = input("Enter the username to search: ")
-            os.system('cls')
+            clear_terminal()
             print(Fore.WHITE, f"Searching for {username}...")
             print("This may take a second or minute...\n")
             print(f"Result of '{username}'")
@@ -147,7 +152,7 @@ def osint():
                 
     elif _input1 == 2:
 
-        os.system('cls')
+        clear_terminal()
         target = input("Enter Phone Number (+621234567890): ").strip()
 
         temp_target = target[1:] if target.startswith('+') else target
@@ -181,7 +186,7 @@ def osint():
             reload()
 
 def reconnaissance_tools():
-    os.system('cls')
+    clear_terminal()
     UpperText()
     print(Fore.CYAN, "home/reconnaissance_tools\n")
     menu_list = ["Whois", "Port Scan"]
@@ -191,7 +196,7 @@ def reconnaissance_tools():
         listnum += 1
     _input1 = int(input("Select: "))
     if _input1 == 1:
-        os.system('cls')
+        clear_terminal()
         UpperText()
         print(Fore.CYAN, "home/reconnaissance_tools/whois\n")
         print(Fore.WHITE)
@@ -210,7 +215,7 @@ def reconnaissance_tools():
         print(Fore.YELLOW, "="*40)
         save_file("reconnaissance_folder", f"(whois)_{target}.txt", result)
     elif _input1 == 2:
-        os.system('cls')
+        clear_terminal()
         UpperText()
         print(Fore.CYAN, "home/reconnaissance_tools/portscan\n")
         print(Fore.WHITE)
@@ -245,18 +250,18 @@ def reconnaissance_tools():
 
 def load():
 
-    os.system('cls')
+    clear_terminal()
     print(Fore.YELLOW, "Welcome to Personal Cyber Tool (PCT)")
     key = input("\nAre you sure to start PCT? (Y/n)")
 
     if key.lower() == "y":
         main()
     elif key.lower() == "n":
-        os.system('cls')
+        clear_terminal()
         print(Fore.RED)
         inp = input("Continue Shutdown? [Y/n]: ").strip().lower()
         if inp=="y":
-            os.system('cls')
+            clear_terminal()
             print(Fore.GREEN, "Goodbye.")
             time.sleep(1)
         elif inp=="n":
