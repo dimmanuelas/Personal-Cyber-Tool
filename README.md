@@ -44,7 +44,7 @@ This tool is created for **educational purposes, authorized security testing, an
 ---
 
 ## 📷 Screenshot
-![Image1](./screenshots/image1.jpg)
+![Image1](./screenshots/image1.png)
 
 ---
 
