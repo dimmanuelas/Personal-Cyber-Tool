@@ -6,19 +6,6 @@
 
 ---
 
-## 🚀 Key Features
-
-- **Modular Architecture:** Easily enable, disable, or extend specific OSINT modules.
-- **Multi-Vector Reconnaissance:** Perform automated lookups across diverse digital footprints.
-    - **Email Intelligence:** Check breach databases, associated social accounts, and domain registrations.
-    - **Username Enumeration:** Scan popular platforms, forums, and developer repositories for username footprints.
-    - **Domain & IP Recon:** Gather WHOIS records, DNS enumeration, subdomain discovery, and geolocation data.
-    - **Phone Number Analysis:** Extract carrier data, line type, and international formatting details.
-- **Asynchronous Execution:** Built with performance in mind, utilizing asynchronous requests to minimize scanning time.
-- **Structured Reporting:** Export findings seamlessly into JSON, CSV, or human-readable formats for documentation and analysis.
-
----
-
 ## ⚙️ Installation & Setup
 
 Ensure you have **Python 3.8 or higher** installed on your system. Follow these steps to set up the environment locally:
@@ -54,18 +41,6 @@ python Personal-Cyber-Tool
 ## ⚠️ Disclaimer
 
 This tool is created for **educational purposes, authorized security testing, and defensive research only**. The authors and maintainers assume **no liability** and are not responsible for any misuse or damage caused by this program. Users must ensure they have explicit, written permission from target owners before conducting any reconnaissance activities.
-
----
-
-## 🤝 Contributing
-
-Contributions are what make the open-source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
-
-1. Fork the Project
-2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the Branch (`git origin push feature/AmazingFeature`)
-5. Open a Pull Request
 
 ---
 
