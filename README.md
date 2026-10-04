@@ -41,6 +41,10 @@ python Personal-Cyber-Tool
 ## ⚠️ Disclaimer
 
 This tool is created for **educational purposes, authorized security testing, and defensive research only**. The authors and maintainers assume **no liability** and are not responsible for any misuse or damage caused by this program. Users must ensure they have explicit, written permission from target owners before conducting any reconnaissance activities.
+---
+
+## 📷 Screenshot
+!(Image1)[./screenshot/image1.jpg]
 
 ---
 
