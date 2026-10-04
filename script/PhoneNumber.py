@@ -1,3 +1,4 @@
+
 from phonenumbers import geocoder, carrier
 import phonenumbers
 import pytz
@@ -18,11 +19,21 @@ def getinformation(phone_number):
 
     result = {}
 
+    if phonenumbers.is_valid_number(parsed_number):
+        international_format = phonenumbers.format_number(parsed_number, phonenumbers.PhoneNumberFormat.INTERNATIONAL)
+        national_format = phonenumbers.format_number(parsed_number, phonenumbers.PhoneNumberFormat.NATIONAL)
+    else:
+        print("\n Error: Invalid phone number (inactive number / wrong format).")
+            
+    
+
     if time_zone_str:
         time_zone = pytz.timezone(time_zone_str)
         current_time = datetime.now(time_zone)
         
         result["Phone Number"] = phone_number
+        result["International Format"] = international_format
+        result["National Format"] = national_format
         result["Service Provider"] = service_provider
         result["Country"] = country
         result["Geographical Region"] = region
@@ -32,9 +43,12 @@ def getinformation(phone_number):
     else:
 
         result["Phone Number"] = phone_number
+        result["International Format"] = international_format
+        result["National Format"] = national_format
         result["Service Provider"] = service_provider
         result["Country"] = country
         result["Geographical Region"] = region
         result["Time Zone"] = "Unknow"
+        result["Current Time"] = "Unknow"
 
     return result
