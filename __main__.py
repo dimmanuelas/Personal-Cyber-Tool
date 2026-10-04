@@ -1,7 +1,13 @@
 import os
+import platform
 
 def start(a):
-    os.system('cls')
+
+    if platform.system() == "Windows":
+        os.system('cls')
+    else:
+        os.system('clear')
+
     import PCT
     if a=="menu":
         try:
