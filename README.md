@@ -12,7 +12,7 @@ Ensure you have **Python 3.8 or higher** installed on your system. Follow these 
 
 1. **Clone the repository:**
    ```bash
-   git clone https://github.com/yourusername/Personal-Cyber-Tool.git
+   git clone https://github.com/dimmanuelas/Personal-Cyber-Tool.git
    cd Personal-Cyber-Tool
    ```
 
