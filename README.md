@@ -47,6 +47,12 @@ This tool is created for **educational purposes, authorized security testing, an
 ![Image1](./screenshots/image1.png)
 
 ---
+## Update Logs
+```PCT 2.4: ~
+PCT 2.5: Looping Error Fixed
+PCT 2.6: New OSINT Feature (Web Search)
+```
+---
 
 ## 📄 License
 
