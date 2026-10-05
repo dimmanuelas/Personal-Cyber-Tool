@@ -3,13 +3,16 @@ import os
 import platform
 from colorama import Fore
 import re
+import requests
 
-from script import PhoneNumber
+from script.osint import PhoneNumber
 
 MENU = ["OSINT",
         "Reconnaissance Tools",
         "Credits",
         "Exit PCT"]
+
+global APP_DATA
 
 def UpperText():
     print(Fore.GREEN, "██████╗░███████╗██████╗░░██████╗░█████╗░███╗░░██╗░█████╗░██╗░░░░░  ░█████╗░██╗░░░██╗██████╗░███████╗██████╗░")
@@ -23,7 +26,8 @@ def UpperText():
     print("░░░██║░░░██║░░██║██║░░██║██║░░░░░  █████╗  ██████╔╝██║░░╚═╝░░░██║░░░")
     print("░░░██║░░░██║░░██║██║░░██║██║░░░░░  ╚════╝  ██╔═══╝░██║░░██╗░░░██║░░░")
     print("░░░██║░░░╚█████╔╝╚█████╔╝███████╗  ░░░░░░  ██║░░░░░╚█████╔╝░░░██║░░░")
-    print("░░░╚═╝░░░░╚════╝░░╚════╝░╚══════╝  ░░░░░░  ╚═╝░░░░░░╚════╝░░░░╚═╝░░░")
+    print("░░░╚═╝░░░░╚════╝░░╚════╝░╚══════╝  ░░░░░░  ╚═╝░░░░░░╚════╝░░░░╚═╝░░░\n")
+    print(Fore.MAGENTA, "Use Ctrl + C to return to the home.")
 
 def clear_terminal():
     if platform.system() == "Windows":
@@ -38,6 +42,17 @@ def Menu():
     for v in MENU:
         print(Fore.WHITE, str(listnum) + ". " + v)
         listnum += 1
+
+def credit_text():
+    clear_terminal()
+    UpperText()
+    print(Fore.CYAN, "home/credits\n")
+    print(Fore.CYAN, "="*40)
+    print(Fore.CYAN, "- Head Developer: Dimmanuel (DimDev)\n- Developer & Contributor: Ceva")
+    print(Fore.CYAN, "="*40)
+    print(Fore.YELLOW)
+    input("Press Enter to back home...")
+    reload()
 
 def reload():
     print(Fore.WHITE, "Reloading...")
@@ -73,7 +88,6 @@ def save_file(dir_name, file_name, value):
         print(Fore.LIGHTGREEN_EX, f"Successfully save as '{final_name}'")
         print(Fore.WHITE)
         input("Press Enter to back home...")
-    
         reload()
     
     elif key2.lower() == "n":
@@ -84,11 +98,17 @@ def main():
     UpperText()
     print(Fore.CYAN, "home\n")
     Menu()
-    _input1 = int(input("Select: "))
+    try:
+        _input1 = int(input("Select: "))
+    except Exception as e:
+        reload()
+    
     if _input1 == 1:
         osint()
     elif _input1 == 2:
         reconnaissance_tools()
+    elif _input1 == 3:
+        credit_text()
     elif _input1 == 4:
         clear_terminal()
         print(Fore.RED)
@@ -99,17 +119,22 @@ def main():
             time.sleep(1)
         elif inp=="n":
             main()
+    else:
+        reload()
 
 def osint():
     clear_terminal()
     UpperText()
     print(Fore.CYAN, "home/osint\n")
-    menu_list = ["Username Search", "Phone Number Information"]
+    menu_list = ["Username Search", "Phone Number Information", "Website Search"]
     listnum = 1
     for v in menu_list:
         print(Fore.WHITE, str(listnum) + ". " + v)
         listnum += 1
-    _input1 = int(input("Select: "))
+    try:
+        _input1 = int(input("Select: "))
+    except Exception as e:
+        osint()
 
     if _input1 == 1:
         clear_terminal()
@@ -125,12 +150,11 @@ def osint():
             print("This may take a second or minute...\n")
             print(f"Result of '{username}'")
             print(Fore.YELLOW, "="*40)
-            import script.Username as Username
+            import script.osint.Username as Username
             results = Username.limited_search(username)
             print(Fore.YELLOW, "="*40)
             print(Fore.WHITE)
             save_file("username_folder", f"{username}.txt", results)
-                
 
         elif _input2 == 2:
 
@@ -138,7 +162,7 @@ def osint():
             print("Get Username From Across Internet")
             print("API: PCTs API")
 
-            import script.Username as Username
+            import script.osint.Username as Username
 
             username = input("Enter the username to search: ")
             clear_terminal()
@@ -149,6 +173,9 @@ def osint():
             results2 = Username.search(username)
 
             save_file("username_folder", f"{username}.txt", results2)
+        else:
+            print(Fore.RED, "option error")
+            osint()
                 
     elif _input1 == 2:
 
@@ -167,14 +194,8 @@ def osint():
             information = PhoneNumber.getinformation(target)
             print(f"Result of '{target}'")
             print(Fore.YELLOW, "="*40)
-            print(Fore.WHITE, f"Phone Number: {information["Phone Number"]}") 
-            print(Fore.WHITE, f"International Format: {information["International Format"]}") 
-            print(Fore.WHITE, f"National Format: {information["National Format"]}") 
-            print(Fore.WHITE, f"Service Provider: {information["Service Provider"]}") 
-            print(Fore.WHITE, f"Country: {information["Country"]}") 
-            print(Fore.WHITE, f"Geographical Region: {information["Geographical Region"]}") 
-            print(Fore.WHITE, f"Time Zone: {information["Time Zone"]}") 
-            print(Fore.WHITE, f"Current Time: {information["Current Time"]}") 
+            for val in information:
+                print(Fore.WHITE, f"{val}: {information[val]}") 
             print(Fore.YELLOW, "="*40)
 
             print(Fore.WHITE)
@@ -185,6 +206,44 @@ def osint():
             input("Press Enter To Return...")
             reload()
 
+    elif _input1 == 3:
+        clear_terminal()
+        UpperText()
+        print(Fore.CYAN, "home/osint/websearch\n")
+        print(Fore.WHITE)
+        user_query = input("Enter the keywords you want to search for on the internet: ")
+        try:
+            user_query2 = int(input("(default 10) max_results="))
+        except Exception as e:
+            user_query2 = 10
+    
+        done=False
+    
+        while done==False:
+            if user_query.strip():
+                from script.osint import websearch
+                    
+                result = websearch.search_internet(user_query, max_results=user_query2)
+                                          
+                print(Fore.LIGHTGREEN_EX + f"\nResult for: '{user_query}'")
+                for i, item in enumerate(result, 1):
+                    print(Fore.MAGENTA,f"\n{i}. {item['title']}")
+                    print(Fore.CYAN,"   Snippet: " + Fore.WHITE, f"{item['snippet']}")
+                    print(Fore.CYAN,"   URL:" + Fore.WHITE, f" {item['url']}")
+    
+                usr_input = input('Type "r" to retry, leave it blank to continue: ').strip().lower()
+                if usr_input=='r':
+                    print(Fore.YELLOW, "Retrying...\n")
+                else:
+                    done=True
+                    save_file("reconnaissance_folder", f"(web_search)_{user_query}.txt", enumerate(result, 1))
+            else:
+                print(Fore.RED + "[!] keywords cannot be empty.")
+
+    else:
+        print(Fore.RED, "option error")
+        osint()
+
 def reconnaissance_tools():
     clear_terminal()
     UpperText()
@@ -194,7 +253,10 @@ def reconnaissance_tools():
     for v in menu_list:
         print(Fore.WHITE, str(listnum) + ". " + v)
         listnum += 1
-    _input1 = int(input("Select: "))
+    try:
+        _input1 = int(input("Select: "))
+    except Exception as e:
+        reconnaissance_tools()
     if _input1 == 1:
         clear_terminal()
         UpperText()
@@ -246,12 +308,22 @@ def reconnaissance_tools():
                 print(f"{port_str} : {status_str} ")
             print(Fore.YELLOW, "="*40)
             save_file("reconnaissance_folder", f"(port_scan)_{target}.txt", response["results"])
-                    
+    
+       
+    else:
+        reconnaissance_tools()
 
 def load():
 
+    try:
+        APP_DATA_response = requests.get("https://raw.githubusercontent.com/dimmanuelas/Personal-Cyber-Tool/refs/heads/main/THIS_IS_APP_DATA/datas.json")
+        APP_DATA_response.raise_for_status()
+        APP_DATA = APP_DATA_response.json()
+    except Exception as e:
+        print(Fore.RED, "[!] An error occurred while retrieving application data.")
+
     clear_terminal()
-    print(Fore.YELLOW, "Welcome to Personal Cyber Tool (PCT)")
+    print(Fore.YELLOW, f"Welcome to Personal Cyber Tool (PCT). Ver{APP_DATA['Version']}")
     key = input("\nAre you sure to start PCT? (Y/n)")
 
     if key.lower() == "y":
@@ -262,6 +334,7 @@ def load():
         inp = input("Continue Shutdown? [Y/n]: ").strip().lower()
         if inp=="y":
             clear_terminal()
+            print(Fore.YELLOW, "LOL... So why did you start PCT?")
             print(Fore.GREEN, "Goodbye.")
             time.sleep(1)
         elif inp=="n":
